@@ -1,0 +1,31 @@
+ RUN  v2.1.8 /home/claude/RiTech-SAS-main
+      Coverage enabled with v8
+ ✓ tests/unit/LotsDashboard.test.jsx (10 tests) 2445ms
+   ✓ LotsDashboard (unitaria) > modal "Registrar nuevo lote" > rechaza una fecha de cosecha futura 428ms
+   ✓ LotsDashboard (unitaria) > modal "Registrar nuevo lote" > guarda un lote nuevo como pendiente con el siguiente ID y muestra aviso 347ms
+ ✓ tests/integration/App.test.jsx (10 tests) 3842ms
+   ✓ App (integración: rutas + sesión + vistas) > login completo: entra a /dashboard y guarda la sesión en localStorage 1656ms
+   ✓ App (integración: rutas + sesión + vistas) > registrar un lote desde el dashboard actualiza los contadores del resumen 588ms
+   ✓ App (integración: rutas + sesión + vistas) > desde el login se puede ir al seguimiento público y consultar un envío 907ms
+ ✓ tests/unit/LoginView.test.jsx (4 tests) 1003ms
+   ✓ LoginView (unitaria) > muestra error con un correo inválido 376ms
+   ✓ LoginView (unitaria) > con datos válidos muestra "Ingresando..." y llama onLogin con el correo limpio 371ms
+ ✓ tests/unit/TrackingView.test.jsx (6 tests) 731ms
+ Test Files  4 passed (4)
+      Tests  30 passed (30)
+   Start at  04:19:38
+   Duration  13.44s (transform 332ms, setup 824ms, collect 864ms, tests 8.02s, environment 1.70s, prepare 362ms)
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   97.21 |    93.49 |   86.79 |   97.21 |                   
+ src               |   92.85 |    82.35 |     100 |   92.85 |                   
+  App.jsx          |   92.85 |    82.35 |     100 |   92.85 | 15-16,43,52       
+ src/components/ui |   82.81 |    73.33 |      50 |   82.81 |                   
+  Layout.jsx       |   82.81 |    73.33 |      50 |   82.81 | 89-97,107-120     
+ src/views         |     100 |    97.08 |   94.87 |     100 |                   
+  LoginView.jsx    |     100 |    95.83 |     100 |     100 | 25                
+  ...Dashboard.jsx |     100 |    97.05 |   91.66 |     100 | 103,268           
+  TrackingView.jsx |     100 |    97.77 |     100 |     100 | 154               
+-------------------|---------|----------|---------|---------|-------------------

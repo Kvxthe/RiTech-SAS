@@ -1,0 +1,9 @@
+ RUN  v2.1.8 /home/claude/RiTech-SAS-main
+ ✓ tests/unit/LotsDashboard.test.jsx (10 tests) 2031ms
+   ✓ LotsDashboard (unitaria) > modal "Registrar nuevo lote" > rechaza una fecha de cosecha futura 325ms
+ ✓ tests/unit/LoginView.test.jsx (4 tests) 676ms
+ ✓ tests/unit/TrackingView.test.jsx (6 tests) 670ms
+ Test Files  3 passed (3)
+      Tests  20 passed (20)
+   Start at  04:19:25
+   Duration  6.83s (transform 288ms, setup 581ms, collect 620ms, tests 3.38s, environment 1.19s, prepare 457ms)

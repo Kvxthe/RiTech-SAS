@@ -1,0 +1,11 @@
+Running 7 tests using 1 worker
+  ✓  1 [chromium] › flujos.spec.js:6:3 › Seguimiento público › un cliente consulta un envío en tránsito (3.5s)
+  ✓  2 [chromium] › flujos.spec.js:17:3 › Seguimiento público › un código inexistente muestra el aviso (1.7s)
+  ✓  3 [chromium] › flujos.spec.js:27:3 › Acceso de exportadores › una ruta protegida redirige a /login (775ms)
+  ✓  4 [chromium] › flujos.spec.js:33:3 › Acceso de exportadores › el login rechaza una contraseña corta (930ms)
+  ✓  5 [chromium] › flujos.spec.js:42:3 › Acceso de exportadores › flujo completo: login → registrar lote → filtrar → cerrar sesión (4.2s)
+  ✓  6 [chromium] › flujos.spec.js:71:3 › Acceso de exportadores › la sesión persiste al recargar la página (3.2s)
+  ✓  7 [chromium] › flujos.spec.js:85:3 › Versión móvil › el menú hamburguesa abre y navega a Lotes (3.2s)
+  Slow test file: [chromium] › flujos.spec.js (17.5s)
+  Consider splitting slow test files to speed up parallel execution
+  7 passed (19.9s)
