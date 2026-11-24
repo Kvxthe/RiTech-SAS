@@ -77,6 +77,27 @@ test.describe('Acceso de exportadores', () => {
     await page.reload();
     await expect(page).toHaveURL(/\/dashboard$/);
   });
+
+  test('consulta el historial de un envío y su documentación relacionada', async ({ page }) => {
+    await page.goto('/login');
+    await page.getByLabel('Correo electrónico').fill('envios@ritech.co');
+    await page.getByLabel('Contraseña', { exact: true }).fill('clave123');
+    await page.getByRole('button', { name: 'Ingresar' }).click();
+    await expect(page).toHaveURL(/\/dashboard$/);
+
+    const nav = page.getByRole('navigation', { name: 'Navegación principal' });
+    await nav.getByRole('link', { name: 'Envíos' }).click();
+    await page.getByRole('link', { name: /RT-2026-0142/ }).click();
+    await expect(page).toHaveURL(/\/envios\/RT-2026-0142$/);
+    await expect(page.getByText('Historial y registros')).toBeVisible();
+
+    await nav.getByRole('link', { name: 'Documentación' }).click();
+    await page.getByRole('link', { name: /DOC-004217/ }).click();
+    await expect(page).toHaveURL(/\/documentos\/DOC-004217$/);
+    await expect(page.getByText('Ficha documental · DOC-004217')).toBeVisible();
+    await page.getByRole('link', { name: /RT-2026-0142/ }).click();
+    await expect(page).toHaveURL(/\/envios\/RT-2026-0142$/);
+  });
 });
 
 test.describe('Versión móvil', () => {

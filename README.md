@@ -26,6 +26,8 @@ Luego abre la URL que muestre Vite, normalmente:
 - `/login` — acceso de exportadores.
 - `/dashboard` — resumen de lotes (requiere iniciar sesión).
 - `/lotes` — gestión de lotes (requiere iniciar sesión).
+- `/envios` — listado, filtros e historial de movimientos por envío (requiere iniciar sesión).
+- `/documentos` — consulta de registros documentales por lote y envío (requiere iniciar sesión).
 
 ## Credenciales de demo
 
@@ -38,3 +40,14 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## Pruebas automatizadas
+
+```bash
+npm run test:unit
+npm run test:integration
+npm run test:e2e
+npm run test:coverage
+```
+
+Las pruebas E2E requieren Chromium. Si no está instalado, ejecuta `npx playwright install chromium`.

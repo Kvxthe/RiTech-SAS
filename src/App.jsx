@@ -4,6 +4,8 @@ import Layout from './components/ui/Layout';
 import LoginView from './views/LoginView';
 import TrackingView from './views/TrackingView';
 import LotsDashboard from './views/LotsDashboard';
+import ShipmentsView from './views/ShipmentsView';
+import DocumentsView from './views/DocumentsView';
 
 const SESSION_KEY = 'ritech.session';
 
@@ -60,6 +62,10 @@ export default function App() {
           <Route element={<Layout user={session} onLogout={handleLogout} />}>
             <Route path="/dashboard" element={<LotsDashboard showSummary />} />
             <Route path="/lotes" element={<LotsDashboard />} />
+            <Route path="/envios" element={<ShipmentsView />} />
+            <Route path="/envios/:code" element={<ShipmentsView />} />
+            <Route path="/documentos" element={<DocumentsView />} />
+            <Route path="/documentos/:id" element={<DocumentsView />} />
           </Route>
         </Route>
 

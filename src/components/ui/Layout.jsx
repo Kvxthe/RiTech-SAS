@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Coffee, ExternalLink, LayoutDashboard, LogOut, Menu, Package, X } from 'lucide-react';
+import { Coffee, ExternalLink, FileText, LayoutDashboard, LogOut, Menu, Package, Ship, X } from 'lucide-react';
 
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/lotes', label: 'Lotes', icon: Package },
+  { to: '/envios', label: 'Envíos', icon: Ship },
+  { to: '/documentos', label: 'Documentación', icon: FileText },
 ];
 
 const PAGE_META = {
   '/dashboard': { title: 'Dashboard', subtitle: 'Resumen de producción y cumplimiento EUDR' },
   '/lotes': { title: 'Lotes', subtitle: 'Registro y trazabilidad de cada lote exportable' },
+  '/envios': { title: 'Envíos', subtitle: 'Estado de cargas y registros de tránsito' },
+  '/documentos': { title: 'Documentación', subtitle: 'Registros asociados a lotes y envíos' },
 };
 
 const getInitials = (email = '') => (email.split('@')[0] || 'U').slice(0, 2).toUpperCase();
@@ -78,7 +82,7 @@ function SidebarContent({ user, onLogout, onNavigate }) {
 export default function Layout({ user, onLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
-  const meta = PAGE_META[pathname] || PAGE_META['/dashboard'];
+  const meta = PAGE_META[pathname] || (pathname.startsWith('/envios/') ? { title: 'Detalle del envío', subtitle: 'Historial y trazabilidad de la carga' } : pathname.startsWith('/documentos/') ? { title: 'Ficha documental', subtitle: 'Registro y referencias asociadas' } : PAGE_META['/dashboard']);
 
   useEffect(() => {
     setIsMenuOpen(false);

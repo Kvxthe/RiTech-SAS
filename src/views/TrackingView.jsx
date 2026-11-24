@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   AlertCircle,
   Anchor,
@@ -15,58 +15,17 @@ import {
   ShieldCheck,
   Ship,
 } from 'lucide-react';
+import { SHIPMENTS, SHIPMENT_STEPS, formatShipmentDate, formatShipmentWeight } from '../data/shipments';
 
-const SHIPMENTS = {
-  'RT-2026-0142': {
-    code: 'RT-2026-0142',
-    product: 'Café especial de Nariño, variedad Castillo',
-    origin: 'Cartagena, Colombia',
-    destination: 'Hamburgo, Alemania',
-    weightKg: 18400,
-    vessel: 'MSC Aurora',
-    eta: '2026-12-08',
-    status: 'transit',
-    eudrRef: 'DDS-CO-2026-004217',
-    events: { port: '2026-11-12', transit: '2026-11-15', delivered: null },
-  },
-  'RT-2026-0177': {
-    code: 'RT-2026-0177',
-    product: 'Cacao Trinitario fermentado',
-    origin: 'Buenaventura, Colombia',
-    destination: 'Róterdam, Países Bajos',
-    weightKg: 12600,
-    vessel: 'Maersk Elba',
-    eta: '2026-12-16',
-    status: 'port',
-    eudrRef: 'DDS-CO-2026-004388',
-    events: { port: '2026-11-18', transit: null, delivered: null },
-  },
-  'RT-2026-0098': {
-    code: 'RT-2026-0098',
-    product: 'Café Caturra lavado',
-    origin: 'Cartagena, Colombia',
-    destination: 'Amberes, Bélgica',
-    weightKg: 9200,
-    vessel: 'CMA CGM Tigris',
-    eta: '2026-09-18',
-    status: 'delivered',
-    eudrRef: 'DDS-CO-2026-003974',
-    events: { port: '2026-08-24', transit: '2026-08-28', delivered: '2026-09-18' },
-  },
-};
-
-const STEPS = [
-  { key: 'port', label: 'En puerto', description: 'La carga espera embarque en el puerto de origen.', icon: Anchor },
-  { key: 'transit', label: 'En tránsito', description: 'El contenedor navega hacia el puerto de destino.', icon: Ship },
-  { key: 'delivered', label: 'Entregado', description: 'La carga llegó a destino y fue entregada.', icon: PackageCheck },
-];
+const STEPS = SHIPMENT_STEPS.map((step, index) => ({
+  ...step,
+  icon: [Anchor, Ship, PackageCheck][index],
+}));
 
 const STATUS_INDEX = { port: 0, transit: 1, delivered: 2 };
 
-const formatDate = (iso) =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
-
-const formatKg = (value) => `${new Intl.NumberFormat('es-CO').format(value)} kg`;
+const formatDate = formatShipmentDate;
+const formatKg = formatShipmentWeight;
 
 function Timeline({ shipment }) {
   const currentIndex = STATUS_INDEX[shipment.status];
@@ -141,7 +100,8 @@ function Detail({ icon: Icon, label, children }) {
 }
 
 export default function TrackingView() {
-  const [query, setQuery] = useState('');
+  const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('codigo') || '');
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [searchedCode, setSearchedCode] = useState('');

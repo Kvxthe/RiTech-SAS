@@ -64,6 +64,30 @@ describe('App (integración: rutas + sesión + vistas)', () => {
     expect(screen.getByText('Registro y trazabilidad de cada lote exportable')).toBeInTheDocument();
   });
 
+  it('abre un producto desde Envíos y muestra sus registros de tránsito', async () => {
+    const { user } = renderAt('/envios', { session: { email: 'ya@ritech.co' } });
+    const nav = screen.getByRole('navigation', { name: 'Navegación principal' });
+    await user.click(within(nav).getByRole('link', { name: /Envíos/ }));
+    expect(window.location.pathname).toBe('/envios');
+    await user.click(screen.getByRole('link', { name: /RT-2026-0142/ }));
+    expect(window.location.pathname).toBe('/envios/RT-2026-0142');
+    expect(screen.getByText('Historial y registros')).toBeInTheDocument();
+    expect(screen.getAllByText('En tránsito').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/Lote LT-0418/)).toBeInTheDocument();
+  });
+
+  it('consulta registros documentales y permite abrir el envío relacionado', async () => {
+    const { user } = renderAt('/documentos', { session: { email: 'ya@ritech.co' } });
+    const nav = screen.getByRole('navigation', { name: 'Navegación principal' });
+    await user.click(within(nav).getByRole('link', { name: /Documentación/ }));
+    expect(screen.getByText('Mostrando 6 de 6 registros')).toBeInTheDocument();
+    await user.click(screen.getByRole('link', { name: /DOC-004217/ }));
+    expect(window.location.pathname).toBe('/documentos/DOC-004217');
+    expect(screen.getByText('Declaración de diligencia debida')).toBeInTheDocument();
+    await user.click(screen.getByRole('link', { name: /RT-2026-0142/ }));
+    expect(window.location.pathname).toBe('/envios/RT-2026-0142');
+  });
+
   it('cerrar sesión borra localStorage y devuelve a /login', async () => {
     const { user } = renderAt('/dashboard', { session: { email: 'ya@ritech.co' } });
     await user.click(screen.getByRole('button', { name: /Cerrar Sesión/ }));
