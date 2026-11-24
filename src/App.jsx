@@ -38,18 +38,14 @@ export default function App() {
   const handleLogin = useCallback((user) => {
     try {
       window.localStorage.setItem(SESSION_KEY, JSON.stringify(user));
-    } catch {
-      /* storage unavailable: session lives in memory only */
-    }
+    } catch {}
     setSession(user);
   }, []);
 
   const handleLogout = useCallback(() => {
     try {
       window.localStorage.removeItem(SESSION_KEY);
-    } catch {
-      /* storage unavailable */
-    }
+    } catch {}
     setSession(null);
   }, []);
 

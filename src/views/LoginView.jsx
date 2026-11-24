@@ -149,9 +149,6 @@ export default function LoginView({ onLogin }) {
             </button>
           </form>
 
-          <p className="mt-6 text-xs text-slate-500">
-            Acceso de demostración: cualquier correo válido y una contraseña de 6 o más caracteres.
-          </p>
           <p className="mt-6 text-sm text-slate-600">
             ¿Eres cliente y buscas tu envío?{' '}
             <Link to="/seguimiento" className="font-semibold text-roast-700 underline-offset-4 hover:underline">

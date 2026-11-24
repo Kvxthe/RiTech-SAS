@@ -24,10 +24,10 @@ const SHIPMENTS = {
     destination: 'Hamburgo, Alemania',
     weightKg: 18400,
     vessel: 'MSC Aurora',
-    eta: '2026-10-22',
+    eta: '2026-12-08',
     status: 'transit',
     eudrRef: 'DDS-CO-2026-004217',
-    events: { port: '2026-09-28', transit: '2026-10-01', delivered: null },
+    events: { port: '2026-11-12', transit: '2026-11-15', delivered: null },
   },
   'RT-2026-0177': {
     code: 'RT-2026-0177',
@@ -36,10 +36,10 @@ const SHIPMENTS = {
     destination: 'Róterdam, Países Bajos',
     weightKg: 12600,
     vessel: 'Maersk Elba',
-    eta: '2026-11-05',
+    eta: '2026-12-16',
     status: 'port',
     eudrRef: 'DDS-CO-2026-004388',
-    events: { port: '2026-10-03', transit: null, delivered: null },
+    events: { port: '2026-11-18', transit: null, delivered: null },
   },
   'RT-2026-0098': {
     code: 'RT-2026-0098',
@@ -64,9 +64,9 @@ const STEPS = [
 const STATUS_INDEX = { port: 0, transit: 1, delivered: 2 };
 
 const formatDate = (iso) =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  new Date(`${iso}T00:00:00`).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
 
-const formatKg = (value) => `${new Intl.NumberFormat('es-ES').format(value)} kg`;
+const formatKg = (value) => `${new Intl.NumberFormat('es-CO').format(value)} kg`;
 
 function Timeline({ shipment }) {
   const currentIndex = STATUS_INDEX[shipment.status];
@@ -197,13 +197,14 @@ export default function TrackingView() {
 
       <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
         <div className="max-w-2xl">
-          <h1 className="text-3xl font-medium leading-tight sm:text-4xl">¿Dónde está tu cargamento?</h1>
-          <p className="mt-3 text-slate-600">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-roast-700">Trazabilidad de origen a destino</p>
+          <h1 className="text-4xl font-medium leading-tight sm:text-5xl">Tu envío, en cada etapa.</h1>
+          <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
             Ingresa el código de seguimiento que recibiste con tu factura y revisa el estado de tu envío de café o cacao.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} role="search" className="relative mt-8">
+        <form onSubmit={handleSubmit} role="search" className="relative mt-8 rounded-2xl border border-slate-200 bg-white p-3 shadow-soft sm:p-4">
           <label htmlFor="tracking-code" className="sr-only">
             Código de seguimiento
           </label>
@@ -215,12 +216,12 @@ export default function TrackingView() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Ej. RT-2026-0142"
             autoComplete="off"
-            className="h-14 w-full rounded-xl border border-slate-300 bg-white pl-12 pr-4 text-base uppercase shadow-soft transition placeholder:normal-case placeholder:text-slate-400 focus:border-roast-500 focus:outline-none focus:ring-2 focus:ring-roast-200 sm:pr-48 sm:text-lg"
+            className="h-14 w-full rounded-xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-base uppercase transition placeholder:normal-case placeholder:text-slate-400 focus:border-roast-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-roast-200 sm:pr-48 sm:text-lg"
           />
           <button
             type="submit"
             disabled={isLoading || !query.trim()}
-            className="btn-primary mt-3 h-12 w-full sm:absolute sm:right-2 sm:top-2 sm:mt-0 sm:h-10 sm:w-auto"
+            className="btn-primary mt-3 h-12 w-full sm:absolute sm:right-4 sm:top-4 sm:mt-0 sm:h-10 sm:w-auto"
           >
             {isLoading ? (
               <>
@@ -234,7 +235,7 @@ export default function TrackingView() {
         </form>
 
         <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-          <span>Prueba con:</span>
+          <span>Consultar envío:</span>
           {Object.keys(SHIPMENTS).map((code) => (
             <button
               key={code}

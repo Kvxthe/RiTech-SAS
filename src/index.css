@@ -9,7 +9,9 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-slate-50 font-sans text-slate-800 antialiased;
+    @apply bg-[#f7f7f5] font-sans text-slate-800 antialiased;
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(228, 208, 180, .24), transparent 42rem);
+    min-height: 100vh;
   }
   h1,
   h2,
