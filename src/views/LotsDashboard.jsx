@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AlertCircle, Clock, Coffee, MapPin, Plus, Search, ShieldCheck, Sprout, X } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Clock, Coffee, MapPin, Plus, Search, ShieldCheck, Sprout, X } from 'lucide-react';
 
 const INITIAL_LOTS = [
   { id: 'LT-0418', farm: 'Finca La Esperanza', product: 'coffee', variety: 'Castillo', weightKg: 2450, harvestDate: '2026-10-02', status: 'review' },
@@ -215,6 +215,13 @@ export default function LotsDashboard({ showSummary = false }) {
   const [filter, setFilter] = useState('all');
   const [query, setQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toast, setToast] = useState('');
+
+  useEffect(() => {
+    if (!toast) return undefined;
+    const timer = setTimeout(() => setToast(''), 5000);
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   const counts = useMemo(
     () => ({
@@ -244,6 +251,7 @@ export default function LotsDashboard({ showSummary = false }) {
     setFilter('all');
     setQuery('');
     setIsModalOpen(false);
+    setToast(`Lote ${id} registrado. Carga los geodatos de sus parcelas para iniciar la verificación EUDR.`);
   };
 
   const clearFilters = () => {
@@ -387,6 +395,18 @@ export default function LotsDashboard({ showSummary = false }) {
       </div>
 
       {isModalOpen && <NewLotModal onClose={() => setIsModalOpen(false)} onSubmit={handleCreateLot} />}
+
+      {toast && (
+        <div role="status" aria-live="polite" className="fixed inset-x-4 bottom-4 z-[60] animate-sheet-in sm:left-auto sm:right-6 sm:w-96">
+          <div className="flex items-start gap-3 rounded-xl bg-stone-900 p-4 text-sm text-stone-100 shadow-xl">
+            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" aria-hidden="true" />
+            <p className="flex-1">{toast}</p>
+            <button type="button" onClick={() => setToast('')} aria-label="Cerrar aviso" className="text-stone-400 transition hover:text-white">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );

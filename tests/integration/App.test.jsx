@@ -23,7 +23,7 @@ describe('App (integración: rutas + sesión + vistas)', () => {
   it('la raíz "/" redirige al seguimiento público', () => {
     renderAt('/');
     expect(window.location.pathname).toBe('/seguimiento');
-    expect(screen.getByText('¿Dónde está tu cargamento?')).toBeInTheDocument();
+    expect(screen.getByText('Tu envío, en cada etapa.')).toBeInTheDocument();
   });
 
   it('una ruta desconocida también termina en el seguimiento', () => {
